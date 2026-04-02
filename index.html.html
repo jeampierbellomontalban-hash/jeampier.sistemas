@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: radial-gradient(circle, #1a0000, #000);
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+    }
+
+    /* Rosas cayendo */
+    .rosa {
+        position: absolute;
+        font-size: 25px;
+        animation: caer linear infinite;
+    }
+
+    @keyframes caer {
+        0% {
+            transform: translateY(-100px) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Mensaje */
+    .mensaje {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        font-size: 30px;
+        opacity: 0;
+        animation: aparecer 3s ease forwards;
+        animation-delay: 2s;
+    }
+
+    @keyframes aparecer {
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Corazón */
+    .corazon {
+        position: absolute;
+        top: 60%;
+        width: 100%;
+        font-size: 20px;
+        line-height: 20px;
+        color: red;
+        opacity: 0.8;
+    }
+
+    /* Botón */
+    button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        background: red;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="mensaje">
+    💌 Para alguien muy especial ❤️
+</div>
+
+<div class="corazon" id="corazon"></div>
+
+<button onclick="document.getElementById('musica').play()">
+    🎵 Reproducir Música
+</button>
+
+<audio id="musica" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Rosas cayendo
+    function crearRosa() {
+        const rosa = document.createElement("div");
+        rosa.classList.add("rosa");
+        rosa.innerHTML = "🌹";
+
+        rosa.style.left = Math.random() * window.innerWidth + "px";
+        rosa.style.animationDuration = (3 + Math.random() * 5) + "s";
+        rosa.style.fontSize = (20 + Math.random() * 30) + "px";
+
+        document.body.appendChild(rosa);
+
+        setTimeout(() => {
+            rosa.remove();
+        }, 8000);
+    }
+
+    setInterval(crearRosa, 300);
+
+    // Corazón con rosas
+    function crearCorazon() {
+        let corazon = "";
+        const forma = [
+            " 0110 0110 ",
+            "1111111111",
+            "1111111111",
+            " 11111111 ",
+            "  111111  ",
+            "   1111   ",
+            "    11    "
+        ];
+
+        forma.forEach(fila => {
+            for (let i = 0; i < fila.length; i++) {
+                if (fila[i] === "1") {
+                    corazon += "🌹";
+                } else {
+                    corazon += "&nbsp;";
+                }
+            }
+            corazon += "<br>";
+        });
+
+        document.getElementById("corazon").innerHTML = corazon;
+    }
+
+    crearCorazon();
+
+    // Música
+    function reproducirMusica() {
+        const audio = document.getElementById("musica");
+        audio.play();
+    }
+</script>
+
+</body>
+</html>
